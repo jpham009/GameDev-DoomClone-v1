@@ -63,7 +63,6 @@ stream = ExtResource( 2 )
 script = ExtResource( 3 )
 
 [node name="Player" parent="." instance=ExtResource( 4 )]
-editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0150216, 1.48946, -0.00840758 )
 
 [node name="Timer" type="Timer" parent="Player"]
@@ -93,6 +92,9 @@ gravity_scale = 0.0
 [node name="spawn_platform" parent="." instance=ExtResource( 8 )]
 transform = Transform( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, -1.98587, 0, -20.0985 )
 script = ExtResource( 9 )
+
+[node name="Timer" type="Timer" parent="spawn_platform"]
+wait_time = 2.0
 
 [node name="health_pack" parent="." instance=ExtResource( 10 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 0, -30 )

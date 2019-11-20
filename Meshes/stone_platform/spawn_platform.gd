@@ -4,18 +4,27 @@ extends Spatial
 # var a = 2
 # var b = "text"
 var time = null
-onready var pos = get_node('../spawn_platform')
+#onready var pos = get_node('../spawn_platform').translation
 # Called when the node enters the scene tree for the first time.
 func _ready():
   pass
 
+onready var timer = get_node('Timer')
+var delay = false
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-  if time == null: 
-    time = delta
-  if (delta - time >= 3):
+func _physics_process( delta ) :
+  if delay == false: 
+    timer.start() # Start the Timer counting down
+    delay = true
     var zombieSpawn = load("res://Zombie/Zombie.tscn")
     var zombie = zombieSpawn.instance()
-    #var pos = Vector3(0,0,0)
-    zombie.translation = pos
-#get_node("“/root/spawn_platform")
+    zombie.setHealth( 3 )
+    zombie.translation = Vector3(3.164,3,-2.70)
+  
+    self.add_child(zombie)
+    
+    yield(timer, "timeout") # Wait for the timer to wind down
+    delay = false
+    
+   

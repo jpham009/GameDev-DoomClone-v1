@@ -17,6 +17,9 @@ func _ready():
 func _process(delta):
   pass
 
+onready var timer = get_node('Timer')
+#var delay = false
+
 func hurt( howMuch = 1 ) :
   health -= howMuch
   print ('barrel hit!')
@@ -25,5 +28,10 @@ func hurt( howMuch = 1 ) :
     dead = true    
     $CollisionShape.disabled = true
     var explode = explosion.instance()
+    self.add_child(explode)
+    print("boom")
+    get_node('barrell').visible = false
+    timer.start()
+    yield(timer, "timeout")
     queue_free()
     

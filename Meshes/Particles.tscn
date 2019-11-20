@@ -7,6 +7,7 @@ spread = 180.0
 gravity = Vector3( 0, -30, 0 )
 initial_velocity = 20.0
 initial_velocity_random = 0.3
+angular_velocity = 2.06518e-038
 damping = 2.1
 
 [sub_resource type="SpatialMaterial" id=2]
@@ -26,11 +27,8 @@ rings = 16
 
 [node name="Particles" type="Particles"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00710869, 1.76411, 0.00547361 )
-emitting = false
 amount = 300
 lifetime = 1.07
 explosiveness = 1.0
 process_material = SubResource( 1 )
-draw_passes = 2
 draw_pass_1 = SubResource( 3 )
-draw_pass_2 = null
