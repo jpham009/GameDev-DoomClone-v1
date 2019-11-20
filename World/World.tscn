@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://World/World.gd" type="Script" id=1]
 [ext_resource path="res://Audio/Pew_Pew-DKnight556-1379997159.wav" type="AudioStream" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://Interface/HUD Layer.gd" type="Script" id=11]
 [ext_resource path="res://Interface/Fonts/Montserrat-ExtraBold.ttf" type="DynamicFontData" id=12]
 [ext_resource path="res://Interface/Message.gd" type="Script" id=13]
+[ext_resource path="res://Meshes/floor/Floor.tscn" type="PackedScene" id=14]
 
 [sub_resource type="DynamicFont" id=1]
 size = 48
@@ -62,6 +63,7 @@ stream = ExtResource( 2 )
 script = ExtResource( 3 )
 
 [node name="Player" parent="." instance=ExtResource( 4 )]
+editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0150216, 1.48946, -0.00840758 )
 
 [node name="Timer" type="Timer" parent="Player"]
@@ -73,23 +75,23 @@ stream = ExtResource( 5 )
 script = ExtResource( 6 )
 
 [node name="explosive_barrell" parent="." instance=ExtResource( 7 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13.1793, -0.16013, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13.1793, 0, 0 )
 gravity_scale = 0.0
 
 [node name="explosive_barrell2" parent="." instance=ExtResource( 7 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -15.4052, -0.16013, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -15.4052, 0, 0 )
 gravity_scale = 0.0
 
 [node name="explosive_barrell3" parent="." instance=ExtResource( 7 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -15.4052, -0.16013, 20.1687 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -15.4052, 0, 20.1687 )
 gravity_scale = 0.0
 
 [node name="explosive_barrell4" parent="." instance=ExtResource( 7 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12.9154, -0.16013, 20.1687 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12.9154, 0, 20.1687 )
 gravity_scale = 0.0
 
 [node name="spawn_platform" parent="." instance=ExtResource( 8 )]
-transform = Transform( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, -1.98587, 2.571, -20.0985 )
+transform = Transform( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, -1.98587, 0, -20.0985 )
 script = ExtResource( 9 )
 
 [node name="health_pack" parent="." instance=ExtResource( 10 )]
@@ -215,5 +217,8 @@ margin_right = 100.0
 margin_bottom = 128.0
 custom_fonts/font = SubResource( 7 )
 text = "Exit"
+
+[node name="floor" parent="." instance=ExtResource( 14 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.065, 0, 2.595 )
 [connection signal="pressed" from="Message Layer/Message/Background/Restart" to="Message Layer/Message" method="_on_Restart_pressed"]
 [connection signal="pressed" from="Message Layer/Message/Background/Exit" to="Message Layer/Message" method="_on_Exit_pressed"]

@@ -8,6 +8,7 @@ radius = 0.812876
 height = 2.51882
 
 [node name="explosive_barrell" type="RigidBody"]
+mode = 1
 script = ExtResource( 1 )
 
 [node name="barrell" parent="." instance=ExtResource( 2 )]
