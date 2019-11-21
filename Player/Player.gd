@@ -15,6 +15,8 @@ var zoomed = false
 
 onready var anim_player = $AnimationPlayer
 onready var raycast = $RayCast
+onready var timer = get_node('Timer')
+var delay = false
 
 #-----------------------------------------------------------
 func _ready():
@@ -94,8 +96,6 @@ func kill() :
 
 #-----------------------------------------------------------
 
-onready var timer = get_node('Timer')
-var delay = false
 func hurt() :
     if delay == false: 
       timer.start() # Start the Timer counting down
@@ -111,3 +111,8 @@ func hurt() :
 #-----------------------------------------------------------
 func heal() :
   numHealth = 3
+#-----------------------------------------------------------
+func areaDamage(origin, radius):
+  var distance = (translation - origin).length()
+  if distance <= radius:
+    hurt()

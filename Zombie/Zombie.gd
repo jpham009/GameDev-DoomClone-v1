@@ -67,3 +67,7 @@ func set_player( p ) :
   player = p
 
 #-----------------------------------------------------------
+func areaDamage(origin, radius):
+  var distance = (translation - origin).length()
+  if distance <= radius:
+    hurt()
