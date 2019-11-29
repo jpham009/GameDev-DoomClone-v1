@@ -56,6 +56,11 @@ func _resetOpponents( qty ) :
   numOpponents = qty
   _setOpponentMessage()
 
+func _addOpponent():
+  maxOpponents += 1
+  numOpponents += 1
+  _setOpponentMessage()
+
 func _setOpponentMessage() :
   get_node( 'Opponents' ).text = '%d / %d' % [ numOpponents, maxOpponents ]
 

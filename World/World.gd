@@ -18,6 +18,30 @@ func _ready() :
 
   get_node( 'HUD Layer' )._resetAmmo( levelData.get( 'maxAmmo', DEFAULT_MAX_AMMO ) )
   get_node( 'HUD Layer' )._resetHealth(3)
+  
+#Zombie spawn
+onready var timer = get_node('Timer')
+var delay = false
+
+func _physics_process( delta ) :
+  if delay == false: 
+    if get_node('Portal'):
+      get_node('Portal')._play()
+      timer.start() # Start the Timer counting down
+      delay = true
+      var zombieSpawn = load("res://Zombie/Zombie.tscn")
+      var zombie = zombieSpawn.instance()
+      zombie.setHealth( 3 )
+      zombie.translation = Vector3(3.164,1,-2.70)
+      self.add_child(zombie)
+      get_tree().call_group( 'zombies', 'set_player', get_node('Player') )
+      get_node( 'HUD Layer' )._addOpponent()
+      yield(timer, "timeout") # Wait for the timer to wind down
+      delay = false
+
+
+  
+  
 #-----------------------------------------------------------
 func _input( __ ) :    # Not using event so don't name it.
   if Input.is_action_just_pressed( 'maximize' ) :

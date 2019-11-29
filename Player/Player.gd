@@ -1,10 +1,9 @@
 extends KinematicBody
 
-const MOVE_SPEED =   10
+var MOVE_SPEED =   8
 const MOUSE_SENS =   0.5
 const MAX_ANGLE  =  88
 const MIN_ANGLE  = -45
-#var maxHealth = 3
 var numHealth = 3
 
 # FOV for when we zoom using "telescopic sight".
@@ -23,9 +22,11 @@ func _ready():
   Input.set_mouse_mode( Input.MOUSE_MODE_CAPTURED )
 
   yield( get_tree(), 'idle_frame' )
-
+  
+  add_to_group('player')
   get_tree().call_group( 'zombies', 'set_player', self )
-
+  get_tree().call_group( 'health', 'set_player', self )
+  
 #-----------------------------------------------------------
 func _input( event ) :
   if Input.is_action_just_pressed( 'zoom' ) :
@@ -46,6 +47,13 @@ func _input( event ) :
 
     rotation_degrees.x -= MOUSE_SENS * event.relative.y
     rotation_degrees.x = min( MAX_ANGLE, max( MIN_ANGLE, rotation_degrees.x ) )
+    
+    
+  if Input.is_action_just_pressed( 'run' ): 
+    MOVE_SPEED = 15
+  
+  if Input.is_action_just_released( 'run' ):
+    MOVE_SPEED = 8
 
 #-----------------------------------------------------------
 func _process( __ ) :    # Not using delta so don't name it.
@@ -101,6 +109,7 @@ func hurt() :
       timer.start() # Start the Timer counting down
       numHealth -= 1
       if numHealth <= 0:
+        get_node( '../HUD Layer' )._playerHurt(numHealth)
         kill()
       delay = true
       yield(timer, "timeout") # Wait for the timer to wind down
@@ -110,7 +119,12 @@ func hurt() :
   
 #-----------------------------------------------------------
 func heal() :
-  numHealth = 3
+  get_node( '../HUD Layer' )._resetHealth(3)
+  
+#-----------------------------------------------------------
+func reload() :
+  get_node( '../HUD Layer' )._resetAmmo(40)
+  
 #-----------------------------------------------------------
 func areaDamage(origin, radius):
   var distance = (translation - origin).length()

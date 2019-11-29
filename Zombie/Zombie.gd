@@ -10,11 +10,14 @@ onready var anim_player = $AnimationPlayer
 var player = null
 var dead = false
 var health = 1
+onready var zombieAudio = get_node('../Zombie Audio')
+
 
 #-----------------------------------------------------------
 func _ready() :
   anim_player.play( 'walk' )
   add_to_group( 'zombies' )
+
 
 #-----------------------------------------------------------
 func _physics_process( delta ) :
@@ -50,13 +53,17 @@ func hurt( howMuch = 1 ) :
     $CollisionShape.disabled = true
     anim_player.play( 'die' )
     print( '%s died.' % name )
-    $'../Zombie Audio'._playSound( 'die' )
-    $'../HUD Layer'._opponentDied()
+    if zombieAudio:
+      zombieAudio._playSound( 'die' )
+    if get_node('../HUD Layer'):
+      get_node('../HUD Layer')._opponentDied()
+
 
   else :
     anim_player.play( 'wounded' )
     print( '%s wounded by %d, now has %d.' % [ name, howMuch, health ] )
-    $'../Zombie Audio'._playSound( 'grunt' )
+    if zombieAudio:
+      zombieAudio._playSound( 'grunt' )
 
 #-----------------------------------------------------------
 func setHealth( hp ) :
@@ -70,4 +77,6 @@ func set_player( p ) :
 func areaDamage(origin, radius):
   var distance = (translation - origin).length()
   if distance <= radius:
+    health = 0
     hurt()
+ 

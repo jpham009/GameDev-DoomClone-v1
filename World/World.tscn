@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://World/World.gd" type="Script" id=1]
 [ext_resource path="res://Audio/Pew_Pew-DKnight556-1379997159.wav" type="AudioStream" id=2]
@@ -14,6 +14,9 @@
 [ext_resource path="res://Interface/Fonts/Montserrat-ExtraBold.ttf" type="DynamicFontData" id=12]
 [ext_resource path="res://Interface/Message.gd" type="Script" id=13]
 [ext_resource path="res://Meshes/floor/Floor.tscn" type="PackedScene" id=14]
+[ext_resource path="res://Meshes/door/Door.tscn" type="PackedScene" id=15]
+[ext_resource path="res://Meshes/key/Key.tscn" type="PackedScene" id=16]
+[ext_resource path="res://Meshes/portal/Portal.tscn" type="PackedScene" id=17]
 
 [sub_resource type="DynamicFont" id=1]
 size = 48
@@ -63,7 +66,7 @@ stream = ExtResource( 2 )
 script = ExtResource( 3 )
 
 [node name="Player" parent="." instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0150216, 1.48946, -0.00840758 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0150216, 1.48946, 15.5603 )
 
 [node name="Timer" type="Timer" parent="Player"]
 wait_time = 2.0
@@ -91,10 +94,8 @@ gravity_scale = 0.0
 
 [node name="spawn_platform" parent="." instance=ExtResource( 8 )]
 transform = Transform( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, -1.98587, 0, -20.0985 )
+visible = false
 script = ExtResource( 9 )
-
-[node name="Timer" type="Timer" parent="spawn_platform"]
-wait_time = 2.0
 
 [node name="health_pack" parent="." instance=ExtResource( 10 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 0, -30 )
@@ -222,5 +223,17 @@ text = "Exit"
 
 [node name="floor" parent="." instance=ExtResource( 14 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.065, 0, 2.595 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+
+[node name="Exit" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 32, 0, -42 )
+
+[node name="Key" parent="." instance=ExtResource( 16 )]
+transform = Transform( -2.18557e-008, 0.5, 0, -0.5, -2.18557e-008, 0, 0, 0, 0.5, -6.83429, 1.53406, -24.9821 )
+
+[node name="Portal" parent="." instance=ExtResource( 17 )]
+transform = Transform( 0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.1, -0.420078, 4.93565, -36.6027 )
 [connection signal="pressed" from="Message Layer/Message/Background/Restart" to="Message Layer/Message" method="_on_Restart_pressed"]
 [connection signal="pressed" from="Message Layer/Message/Background/Exit" to="Message Layer/Message" method="_on_Exit_pressed"]

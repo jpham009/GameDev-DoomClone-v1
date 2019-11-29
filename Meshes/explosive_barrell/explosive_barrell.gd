@@ -3,15 +3,14 @@ extends RigidBody
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-onready var raycast = $RayCast
-onready var anim_player = $AnimationPlayer
+#onready var raycast = $RayCast
+#onready var anim_player = $AnimationPlayer
 
 var player = null
 var zombie = null
 var dead = false
 var health = 3
-var radius = 10 
-var damage = 1
+var radius = 12
 
 
 const explosion = preload("res://Meshes/Particles.tscn")
